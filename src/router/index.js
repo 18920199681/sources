@@ -34,6 +34,6 @@ export default new Router({
       path: '/a-map',
       name: 'AMap',
       component: AMap
-    }
+    },
   ]
 })

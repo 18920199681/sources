@@ -1,67 +1,74 @@
 <template>
-<div class="swiper-box">
-  <div ref="topBox" class="top-box"></div>
-
-  <swiper ref="bottomSwiper" :options="bottomSwiper">
-    <swiper-slide>Slide 1</swiper-slide>
-    <swiper-slide>Slide 2</swiper-slide>
-    <swiper-slide>Slide 3</swiper-slide>
-    <swiper-slide>Slide 4</swiper-slide>
-    <swiper-slide>Slide 5</swiper-slide>
-    <swiper-slide>Slide 6</swiper-slide>
-  </swiper>
-</div>
+  <div class="vue-swiper-container">
+    <swiper :options="swiperOption">
+      <swiper-slide>
+        <img src="../assets/logo.png" />
+      </swiper-slide>
+      <swiper-slide>
+        <img src="../assets/logo.png" />
+      </swiper-slide>
+      <swiper-slide>
+        <img src="../assets/logo.png" />
+      </swiper-slide>
+    </swiper>
+  </div>
 </template>
 
 <script>
 export default {
   data() {
     return {
-      bottomSwiper: {
-        observer: true, // 修改swiper自己或子元素时，自动初始化swiper
-        observeParents: true, // 修改swiper的父元素时，自动初始化swiper
+      swiperOption: {
         loop: true,
-        preventClicksPropagation: false,
-        slideToClickedSlide: true,
-        controller: {
-          control: this.$refs.topSwiper
-        },
-        slidesPerView: 5,
+        // effect: "coverflow",
+        slidesPerView: 3,
         centeredSlides: true,
-        spaceBetween: 10,
-        on: {
-          slideChange: () => {
-            if (this.$refs.bottomSwiper.swiper) {
-              console.log(this.$refs.bottomSwiper.swiper.clickedSlide.innerHTML);
-              this.$refs.topBox.innerHTML = this.$refs.bottomSwiper.swiper.clickedSlide.innerHTML;
-            }
-          }
-        }
       },
-    }
+    };
   },
-}
+};
 </script>
 
 <style lang="less" scoped>
-.swiper-box {
+.vue-swiper-container {
   width: 50%;
-  height: 100px;
-}
+  .swiper-container {
+    width: 100%;
+    height: 300px;
+    .swiper-wrapper {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      .swiper-slide {
+        img {
+          width: 100%;
+          height: 100%;
+        }
+      }
 
-.top-box {
-  background: red;
-  width: 100%;
-  height: 200px;
-  margin-bottom: 10px;
-}
+      .swiper-slide-prev,
+      .swiper-slide-next {
+        height: 60%;
+        top: 50%;
+        transform: translateY(-50%);
+        // transform: translate3d(0px, 0px, -99.8258px) rotateX(0deg);
+        img {
+          background: blue;
+        }
+      }
 
-/deep/.swiper-container {
-  height: 100%;
-
-  .swiper-wrapper {
-    .swiper-slide {
-      background: blue;
+      .swiper-slide-active {
+        height: 100%;
+        img {
+          width: 150%;
+          position: relative;
+          left: 50%;
+          transform: translateX(-50%);
+          z-index: 99;
+          background: red;
+        }
+      }
     }
   }
 }
